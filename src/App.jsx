@@ -4,7 +4,7 @@ function App() {
   useEffect(() => {
     // Dynamically load the SDL2 WebAssembly application
     const script = document.createElement("script");
-    script.src = "/test.js"; // Path to the compiled JavaScript glue code
+    script.src = `${import.meta.env.BASE_URL}test.js`; // Path to the compiled JavaScript glue code
     script.async = true;
 
     // Append the script to the document
