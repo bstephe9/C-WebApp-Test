@@ -1,0 +1,1 @@
+int sdl_func();
