@@ -1,15 +1,33 @@
-clean_files = *.exe *.o
-output = sdl_test
-CC = gcc
-CFLAGS = -g -std=c17
-INCLUDES = C:\MinGW\x86_64-w64-mingw32\include\SDL2
-LIBS = C:\MinGW\x86_64-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
+TARGET = test
 
-test:
-	$(CC) -o test test.c $(CFLAGS) -I$(INCLUDES) -L$(LIBS)
+# Build CHIP-8
 
-s:
-	$(CC) -o sdl_test sdl_test.c $(CFLAGS) -I$(INCLUDES) -L$(LIBS) 
+# Build CHIP-8 WebAssembly 
 
+# gcc -c test.c `sdl2-config --cflags`
+# gcc -c sdl_file.c `sdl2-config --cflags`
+# gcc test.o sdl_file.o -o test `sdl2-config --libs`
+
+# emcc test.c sdl_file.c -s USE_SDL=2 -o index.html 
+
+# Default target
+all: test
+
+test: test.o sdl_file.o
+	gcc $^ -o $@ `sdl2-config --libs`
+
+test.o sdl_file.o:
+	gcc -c $@.c `sdl2-config --cflags`
+
+# For debugging
+debug: $(OBJ)
+	gcc -g 
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ) $(LDFLAGS) -DDEBUG
+
+# Build the executable
+$(TARGET): $(OBJ)
+	$(CC) $(OBJ) -o $@ $(LDFLAGS)
+
+# Clean up generated files
 clean:
-	rm $(clean_files)
+	rm *.o *.exe
