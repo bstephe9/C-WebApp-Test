@@ -15,7 +15,7 @@ const int SCREEN_HEIGHT = 600;
 SDL_Window* win = NULL;
 SDL_Renderer* renderer = NULL;
 SDL_Rect rect = { .x = 100, .y = 100, .w = 50, .h = 50 };
-const int SPEED = 10;  // Movement speed
+const int SPEED = 15;  // Movement speed
 
 int handle_input() {
     /* Rect screen coordinates */
@@ -99,7 +99,7 @@ void draw() {
     SDL_RenderClear(renderer);
 
     // Draw the rectangle
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
     SDL_RenderFillRect(renderer, &rect);
 
     SDL_RenderPresent(renderer);
