@@ -30,7 +30,10 @@ jobs:
         run: pnpm run build
 
       - name: Deploy to GitHub Pages
-        run: pnpm run deploy
+        run: |
+          git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+          git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+          pnpm run deploy
         env:
           GIT_USER: github-actions[bot]
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
