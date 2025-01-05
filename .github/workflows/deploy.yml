@@ -20,7 +20,10 @@ jobs:
             cd emsdk
             ./emsdk install latest
             ./emsdk activate latest
-            source ./emsdk_env.sh
+            echo "Setting up environment variables for Emscripten..."
+            echo "export PATH=$(pwd)/emsdk:$PATH" >> $GITHUB_ENV
+            echo "export PATH=$(pwd)/emsdk/upstream/emscripten:$PATH" >> $GITHUB_ENV
+            echo "export EMSDK=$(pwd)/emsdk" >> $GITHUB_ENV
 
       - uses: pnpm/action-setup@v4
         with:
