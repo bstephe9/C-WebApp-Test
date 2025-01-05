@@ -99,7 +99,7 @@ void draw() {
     SDL_RenderClear(renderer);
 
     // Draw the rectangle
-    SDL_SetRenderDrawColor(renderer, 255, 127, 128, 255);
+    SDL_SetRenderDrawColor(renderer, 69, 69, 69, 255);
     SDL_RenderFillRect(renderer, &rect);
 
     SDL_RenderPresent(renderer);
