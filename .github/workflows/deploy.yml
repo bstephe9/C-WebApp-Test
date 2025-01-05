@@ -22,7 +22,9 @@ jobs:
         run: pnpm install
 
       - name: Build the app
-        run: pnpm run build
+        run: |
+          make -C ./wasm/src/
+          pnpm run build
 
       - name: Deploy to GitHub Pages
         run: |
