@@ -12,6 +12,11 @@ $(objects): %.o: %.c
 
 html:
 	emcc sdl_file.c test.c -s USE_SDL=2 -o test.html
+	mv test.js test.wasm ../../public
+
+js:
+	emcc sdl_file.c test.c -s USE_SDL=2 -o test.js
+	mv test.js test.wasm ../../public
 
 clean:
 	rm $(clean_files)
