@@ -8,5 +8,5 @@ export default defineConfig({
     open: true,
     port: 5173,
   },
-  base: "./",
+  base: "/C-WebApp-Test/",
 })
