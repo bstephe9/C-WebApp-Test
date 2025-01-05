@@ -33,4 +33,3 @@ jobs:
         run: pnpm run deploy
         env:
           GIT_USER: github-actions[bot]
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
