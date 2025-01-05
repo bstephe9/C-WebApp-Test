@@ -31,10 +31,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build the app
+      - name: Compile with emcc
+        run: make local -C ./wasm/src/
+          
+      - name: Ensure Emscripten output files exist
         run: |
-          make local -C ./wasm/src/
-          pnpm run build
+          for file in "./public/test.js" "./public/test.wasm"; do
+            if [ ! -f "$file" ]; then
+              echo "Error: Required file '$file' is missing."
+              exit 1
+            fi
+          done
+
+      - name: Build the app
+        run: pnpm run build
 
       - name: Deploy to GitHub Pages
         run: |
