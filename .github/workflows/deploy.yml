@@ -14,16 +14,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Emscripten
-        run: |
-            git clone https://github.com/emscripten-core/emsdk.git
-            cd emsdk
-            ./emsdk install latest
-            ./emsdk activate latest
-            echo "Setting up environment variables for Emscripten..."
-            echo "export PATH=$(pwd)/emsdk:$PATH" >> $GITHUB_ENV
-            echo "export PATH=$(pwd)/emsdk/upstream/emscripten:$PATH" >> $GITHUB_ENV
-            echo "export EMSDK=$(pwd)/emsdk" >> $GITHUB_ENV
+      - name: Setup emsdk
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          # Make sure to set a version number!
+          version: 3.1.74
+          # This is the name of the cache folder.
+          # The cache folder will be placed in the build directory,
+          #  so make sure it doesn't conflict with anything!
+          actions-cache-folder: 'emsdk-cache'
 
       - uses: pnpm/action-setup@v4
         with:
