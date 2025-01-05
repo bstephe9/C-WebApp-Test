@@ -1,4 +1,4 @@
-clean_files = *.exe *.o *.html *.js *.wasm
+clean_files = *.exe *.o *.html test.js *.wasm
 output = sdl_test
 objects = test.o sdl_file.o
 
@@ -10,12 +10,15 @@ all: $(objects)
 $(objects): %.o: %.c
 	$(CC) -c $^ -o $@ `sdl2-config --cflags`
 
-html:
-	emcc sdl_file.c test.c -s USE_SDL=2 -o test.html
-	mv test.js test.wasm ../../public
-
-js:
-	emcc sdl_file.c test.c -s USE_SDL=2 -o test.js
+# Generate emcc js/wasm files and move to public/
+local:
+	echo "var Module = { canvas: document.getElementById('canvas') };" > temp_pre.js
+	emcc sdl_file.c test.c -s USE_SDL=2 -o test.js \
+		--pre-js temp_pre.js
+	rm temp_pre.js
+	# Remove local paths in file
+	sed '/^\/\/ include: C:.*/d; /^\/\/ end include: C:.*/d' test.js > test_cleaned.js
+	mv test_cleaned.js test.js
 	mv test.js test.wasm ../../public
 
 clean:
